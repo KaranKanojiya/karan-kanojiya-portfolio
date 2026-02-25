@@ -1,0 +1,45 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+frontend/dist/
+build-template/src/frontend/dist/
+*.wasm
+
+# Environment and secrets
+.env
+.env.local
+.env.*.local
+*.pem
+
+# Logs and debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.pnpm-store/
+
+# Editor and OS
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+.idea/
+.vscode/
+*.sublime-*
+
+# Vite
+frontend/node_modules/.vite/
+
+# Caffeine / generated artifacts
+all_files_summary.json
+build-request.json
+coverage.json
+feature_evidence.json
+frontend-file-summaries.txt
+frontend-implementation-plan.json
+project_state.json
+spec_vs_diff_report.json
+caffeine.lock.json
+
