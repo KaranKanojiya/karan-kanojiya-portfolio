@@ -1,4 +1,4 @@
-import { defineConfig } from 'vite';
+import { defineConfig, type Plugin } from 'vite';
 import react from '@vitejs/plugin-react';
 import path from 'path';
 import fs from 'fs';
@@ -21,6 +21,26 @@ function serveStandaloneAtRoot() {
   };
 }
 
+// Copy dist/index-standalone.html to dist/index.html after a build so the site root
+// works on `vite preview` and on static hosts, which look for index.html.
+function emitIndexHtml(): Plugin {
+  let root = __dirname;
+  let outDir = 'dist';
+  return {
+    name: 'emit-index-html',
+    apply: 'build',
+    configResolved(config) {
+      root = config.root;
+      outDir = config.build.outDir;
+    },
+    closeBundle() {
+      const from = path.resolve(root, outDir, 'index-standalone.html');
+      const to = path.resolve(root, outDir, 'index.html');
+      if (fs.existsSync(from)) fs.copyFileSync(from, to);
+    },
+  };
+}
+
 export default defineConfig({
   root: __dirname,
   publicDir: 'public',
@@ -39,7 +59,7 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src'),
     },
   },
-  plugins: [react(), serveStandaloneAtRoot()],
+  plugins: [react(), serveStandaloneAtRoot(), emitIndexHtml()],
   server: {
     port: 5173,
     open: '/',

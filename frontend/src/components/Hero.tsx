@@ -3,7 +3,7 @@ import { useScrollAnimation } from '../hooks/useScrollAnimation';
 import { useState } from 'react';
 import { ChevronDown } from 'lucide-react';
 
-const AVATAR_SRC = '/assets/generated/karan-avatar.dim_400x400.png';
+const AVATAR_SRC = `${import.meta.env.BASE_URL}assets/generated/karan-avatar.dim_400x400.png`;
 
 export default function Hero() {
   const ref = useScrollAnimation();
